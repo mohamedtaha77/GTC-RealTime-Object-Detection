@@ -1,17 +1,38 @@
-# Real-Time Object Detection for Autonomous Vehicles
+# Real-Time Object Detection for Autonomous Vehicles  
 
-## 📌 Project Description
-This project focuses on building a deep learning–based **real-time object detection system** for autonomous vehicles. The goal is to reliably detect and classify key objects on the road. Such as pedestrians, vehicles, traffic signs, and obstacles, to support safe navigation under diverse environmental conditions.
+## 📌 Project Description  
+This project focuses on building a deep learning–based real-time object detection system for autonomous vehicles. The aim is to reliably detect and classify key objects on the road—such as pedestrians, vehicles, and cyclists—to support safe navigation under diverse environmental conditions.  
 
-The model will be trained on publicly available autonomous driving datasets and deployed via a lightweight web interface that can process live video streams and display bounding boxes for detected objects in real time.
+The model will be trained on the **KITTI Object Detection Dataset**; however, for now, it has been processed with only a subset of 100 images, which have been cleaned and reformatted for YOLO-based training. Deployment will involve a lightweight demo application that can process live video streams and display bounding boxes in real time.
 
-## 🚀 Phases
-- **Data Preparation:** Image preprocessing and annotation formatting.
-- **EDA & Feature Engineering:** Class distribution analysis and data augmentation.
-- **Model Training & Validation:** Training models like YOLO, Faster R-CNN, or SSD, with evaluation using mAP (mean Average Precision) and FPS (inference speed).
-- **Deployment:** A demo web app for real-time video input detection with bounding boxes.
+---
 
-## ✅ Deliverables
-- A trained object detection model with evaluation metrics (accuracy, mAP, FPS).
-- A short report summarizing model performance.
-- A demo application showcasing real-time object detection on video streams.
+## 🚀 Project Phases  
+
+### **Phase 1: Data Preparation (✅ Completed)**  
+- Collected and uploaded a **subset of the KITTI dataset** (100 images + labels).  
+- Cleaned the dataset:  
+  - Removed images without labels.  
+  - Excluded empty label files.  
+  - Detected and removed duplicate images.  
+  - Filtered out invalid/outlier bounding boxes.  
+- Converted annotations from **KITTI format** to **YOLO format**.  
+- Split dataset into **80% training** and **20% validation** sets.  
+- Generated a `data.yaml` file for YOLO training.  
+- Exported a `cleaning_report.json` documenting excluded files.  
+- Packaged the final dataset as `kitti_yolo_prepared.zip`.  
+
+### **Phase 2: EDA & Feature Engineering (Upcoming)**  
+
+### **Phase 3: Model Training & Validation (Upcoming)**  
+
+### **Phase 4: Deployment (Upcoming)**  
+
+---
+
+## ✅ Deliverables  
+
+- **Phase 1 (Completed):**  
+  - Cleaned dataset in YOLO format (`kitti_yolo_prepared.zip`).  
+  - `data.yaml` file for YOLO training.  
+  - `cleaning_report.json` with details of exclusions.  
