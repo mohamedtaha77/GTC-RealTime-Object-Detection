@@ -1,7 +1,7 @@
 # Real-Time Object Detection for Autonomous Vehicles  
 
 ## 📌 Project Description  
-This project focuses on building a deep learning–based real-time object detection system for autonomous vehicles. The aim is to reliably detect and classify key objects on the road—such as pedestrians, vehicles, and cyclists—to support safe navigation under diverse environmental conditions.  
+This project focuses on building a deep learning–based real-time object detection system for autonomous vehicles. The aim is to reliably detect and classify key objects on the roads, such as pedestrians, vehicles, and cyclists, to support safe navigation under diverse environmental conditions.  
 
 The model will be trained on the **KITTI Object Detection Dataset**; however, for now, it has been processed with only a subset of 100 images, which have been cleaned and reformatted for YOLO-based training. Deployment will involve a lightweight demo application that can process live video streams and display bounding boxes in real time.
 
