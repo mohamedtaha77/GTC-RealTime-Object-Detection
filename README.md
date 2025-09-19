@@ -29,10 +29,3 @@ The model will be trained on the **KITTI Object Detection Dataset**; however, fo
 ### **Phase 4: Deployment (Upcoming)**  
 
 ---
-
-## ✅ Deliverables  
-
-- **Phase 1 (Completed):**  
-  - Cleaned dataset in YOLO format (`kitti_yolo_prepared.zip`).  
-  - `data.yaml` file for YOLO training.  
-  - `cleaning_report.json` with details of exclusions.  
