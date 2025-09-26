@@ -1,68 +1,67 @@
-# Real-Time Object Detection for Autonomous Vehicles 
+# Real-Time Object Detection for Autonomous Vehicles
 
 📌 **Project Description**  
-This project focuses on building a deep learning–based real-time object detection system for autonomous vehicles. The aim is to reliably detect and classify key objects on the roads, such as pedestrians, vehicles, and cyclists, to support safe navigation under diverse environmental conditions.
+This project builds a deep learning–based **real-time object detection** system for autonomous vehicles. It detects and classifies key road objects—**Cars, Pedestrians, Cyclists**—to support safe navigation across diverse conditions.
 
-The model is trained on the KITTI Object Detection Dataset. In **Phase 1**, a subset of 100 cleaned images was used to establish the pipeline. In **Phase 2**, the work expanded to the full KITTI dataset (~12 GB) to perform a comprehensive Exploratory Data Analysis (EDA) and feature engineering. In **Phase 3**, multiple YOLO models were trained and validated, introducing class balancing and augmentation strategies.
+The model is trained on the **KITTI Object Detection** dataset. In **Phase 1**, a 100-image cleaned subset established the pipeline. In **Phase 2**, we scaled to the full KITTI dataset (~12 GB) for comprehensive EDA and feature engineering. In **Phase 3**, we trained and validated multiple YOLO models with class balancing and augmentation. In **Phase 4**, we deployed the best model to a **Flutter Android app** that performs continuous on-device inference.
 
 ---
 
 ## 🚀 Project Phases
 
 ### Phase 1: Data Preparation (✅ Completed)
-- Collected and uploaded a subset of the KITTI dataset (100 images + labels).  
+- Collected and uploaded a **100-image** KITTI subset (images + labels).  
 - Cleaned the dataset:  
   - Removed images without labels.  
   - Excluded empty label files.  
   - Detected and removed duplicate images.  
-  - Filtered out invalid/outlier bounding boxes.  
-- Converted annotations from KITTI format to YOLO format.  
-- Split dataset into 80% training and 20% validation sets.  
-- Generated a `data.yaml` file for YOLO training.  
-- Exported a `cleaning_report.json` documenting excluded files.  
-- Packaged the final dataset as `kitti_yolo_prepared.zip`.
+  - Filtered invalid/outlier bounding boxes.  
+- Converted annotations from **KITTI → YOLO** format.  
+- Split into **80% train / 20% val**.  
+- Generated `data.yaml` for YOLO training.  
+- Exported a `cleaning_report.json` of excluded files.  
+- Packaged the final subset as `kitti_yolo_prepared.zip`.
 
 ---
 
 ### Phase 2: EDA & Feature Engineering (✅ Completed)
-- Scaled up to the full KITTI dataset (~12 GB) for analysis.  
-- Conducted descriptive statistics on bounding boxes, labels, and image distributions.  
-- Visualized dataset patterns:  
-  - Class frequency distributions (vehicles, pedestrians, cyclists).  
-  - Bounding box size and aspect ratio distributions.  
-  - Heatmaps showing object density across image regions.  
-- Identified dataset imbalances (e.g., cars being dominant vs. rare classes like pedestrians/cyclists).  
-- Applied feature engineering:  
-  - Encoded class labels in YOLO-compatible format.  
-  - Normalized bounding box coordinates relative to image size.  
-  - Introduced scaling/augmentation strategies to improve class balance.  
-- Prepared the final cleaned + analyzed dataset for training, ready for Phase 3.  
+- Scaled analysis to the **full KITTI (~12 GB)**.  
+- Descriptive statistics on boxes, labels, image distributions.  
+- Visualized patterns:  
+  - Class frequencies (cars dominant; pedestrians/cyclists rarer).  
+  - Bounding-box sizes and aspect ratios.  
+  - Object-center heatmaps and objects-per-image.  
+- Addressed imbalance and quality:  
+  - Encoded labels for YOLO.  
+  - Normalized boxes relative to image dimensions.  
+  - Applied scaling/augmentation strategies to improve balance.
 
 ---
 
 ### Phase 3: Model Training & Validation (✅ Completed)
-- Configured YOLOv8 training pipeline with the prepared KITTI dataset.  
-- Trained multiple models (e.g., YOLOv8n, YOLOv8s) for comparison.  
-- Applied augmentation strategies including mosaic, mixup, and random scaling.  
-- Addressed class imbalance:  
-  - Oversampled minority classes (pedestrians, cyclists).  
-  - Introduced weighted loss adjustments.  
-- Tracked training progress and logged metrics (mAP, precision, recall, F1-score).  
+- Configured **YOLOv8** training on the prepared dataset.  
+- Trained multiple variants (e.g., **YOLOv8n**, **YOLOv8s**) for comparison.  
+- Augmentations: **mosaic, mixup, flips, HSV jitter, scaling**.  
+- Imbalance handling:  
+  - **Oversampled** minority classes (pedestrians, cyclists).  
+  - (Optionally) **weighted loss**.  
+- Tracked metrics: **mAP, precision, recall, F1**.  
 - Visualized results:  
-  - Confusion matrices for class-level performance.  
-  - Precision-recall curves.  
-  - Example predictions with bounding boxes overlayed on KITTI images.  
-- Exported trained models (`.pt` format) and logs for further evaluation.  
-- Identified best-performing configuration for deployment in Phase 4.  
+  - **Confusion matrices**, PR/RC/F1 curves.  
+  - Example predictions with bounding boxes on KITTI images.  
+- Exported trained models and logs:  
+  - `best.pt`, `best.onnx`, `best_float32.tflite`, `best_float16.tflite`, `best_int8.tflite`, `best.torchscript`, `saved_model/`, `ncnn/`.  
+- Selected the **best configuration** for deployment (FP16 TFLite recommended on Android).
 
 ---
 
-### Phase 4: Deployment (⏳ Upcoming) 
-- Integrate OpenCV for live camera feed processing.  
-- Display bounding boxes and class labels in real time.  
-
-
-
-
-
-
+### Phase 4: Mobile Deployment (✅ Completed)
+- Built a **Flutter Android** app with:  
+  - **Live camera preview (CameraX)** and **continuous inference** (process every *N*-th frame for smooth UI).  
+  - **YOLO letterbox** pre-processing and reverse mapping to preview coordinates.  
+  - **On-device NMS** and overlay rendering (boxes, labels, confidences).  
+- Android config highlights:  
+  - `compileSdk=36`, `minSdk=26`.  
+  - Keep `.tflite` **uncompressed** for fast mmap loads.  
+  - Optional **TFLite GPU** dependency + keep rules when using GPU delegate.  
+- Produced **debug** and **release** APKs.
